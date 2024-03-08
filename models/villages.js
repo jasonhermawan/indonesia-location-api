@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       districtId: DataTypes.INTEGER,
       name: DataTypes.STRING,
-      postalCodes: DataTypes.ARRAY,
+      postalCodes: DataTypes.INTEGER,
     },
     {
       sequelize,
