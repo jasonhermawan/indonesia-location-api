@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       provinceId: DataTypes.INTEGER,
       name: DataTypes.STRING,
+      latitude: DataTypes.STRING,
+      longitude: DataTypes.STRING,
     },
     {
       sequelize,
