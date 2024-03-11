@@ -15,17 +15,28 @@ export const getVillageService = async (query: any) => {
       },
     });
     postalCodeData.forEach((postalCode) => {
-      const postalCodes = postalCodeMap.get(postalCode.village) || [];
+      const villageName = postalCode.village.replace(/\s+/g, '').toLowerCase();
+      const postalCodes = postalCodeMap.get(villageName) || [];
+
       postalCodes.push(postalCode.postalCode);
-      postalCodeMap.set(postalCode.village, postalCodes);
+      postalCodeMap.set(villageName, postalCodes);
+
+      const villageNameWithoutSpaces = postalCode.village
+        .replace(/\s+/g, '')
+        .toLowerCase();
+      postalCodeMap.set(villageNameWithoutSpaces, postalCodes);
     });
 
     const result = villagesData.map((village) => {
+      const villageNameWithoutSpaces = village.name
+        .replace(/\s+/g, '')
+        .toLowerCase();
+      const postalCodes = postalCodeMap.get(villageNameWithoutSpaces) || [];
       return {
         id: village.id,
         districtId: village.districtId,
         name: village.name,
-        postalCodes: postalCodeMap.get(village.name) || [],
+        postalCodes: postalCodes,
       };
     });
     return result;
